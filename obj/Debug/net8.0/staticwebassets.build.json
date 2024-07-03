@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "F+J3TUtnNFrDFDESj7xLmiug0kjUplTDAzD5NfIiyDQ=",
+  "Source": "qr-scanner-app-staj",
+  "BasePath": "_content/qr-scanner-app-staj",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "qr-scanner-app-staj/1.0.0": {
+        "runtime": {
+          "qr-scanner-app-staj.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "qr-scanner-app-staj/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
