@@ -1,0 +1,60 @@
+@page
+@model qr_scanner_app_staj.Pages.qr_scanner.ReceiptsModel
+
+<br>
+<div class="container row p-0 m-0">
+    <div class="col-9">
+        <h2 class="text-info">Receipt List</h2>
+    </div>
+    <div class="col-3">
+        <a class="btn btn-info form-control text-white" asp-page="">Scan Qr</a>
+    </div>
+    <div class="col-12 border p-3 mt-3">
+        <form method="post">
+            @if (Model.receipts.Count() > 0)
+            {
+                <table class="table table-striped border">
+                    <tr class="table-secondary">
+                        <th>
+                            <label asp-for="receipts.FirstOrDefault().receiptId"></label>
+                        </th>
+                        <th>
+                            <label asp-for="receipts.FirstOrDefault().date"></label>
+                        </th>
+                        <th>
+                            <label asp-for="receipts.FirstOrDefault().total"></label>
+                        </th>
+                        <th>
+                            <label asp-for="receipts.FirstOrDefault().totalTax"></label>
+                        </th>
+                        <th>
+
+                        </th>
+                    </tr>
+                    @foreach (var item in Model.receipts)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(m => item.receiptId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.total)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.totalTax)
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <p>There is no receipt</p>
+            }
+        </form>
+
+    </div>
+</div>

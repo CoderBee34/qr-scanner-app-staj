@@ -8,5 +8,8 @@ namespace qr_scanner_app_staj.Model
         {
 
         }
+        public DbSet<User> User { get; set; }
+        public DbSet<Receipt> Receipt { get; set; }
+
     }
 }
