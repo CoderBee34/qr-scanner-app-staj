@@ -24,6 +24,7 @@ namespace qr_scanner_app_staj.Pages.qr_scanner
                 {
                     return Page();
                 }
+                HttpContext.Session.SetInt32("CurrentUser", user.userId);
                 return RedirectToPage("Receipts");
             }
             else

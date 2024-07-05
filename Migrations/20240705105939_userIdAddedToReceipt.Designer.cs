@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using qr_scanner_app_staj.Model;
 
@@ -10,9 +11,11 @@ using qr_scanner_app_staj.Model;
 namespace qr_scanner_app_staj.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240705105939_userIdAddedToReceipt")]
+    partial class userIdAddedToReceipt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,11 +36,11 @@ namespace qr_scanner_app_staj.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<double>("total")
-                        .HasColumnType("double");
+                    b.Property<int>("total")
+                        .HasColumnType("int");
 
-                    b.Property<double>("totalTax")
-                        .HasColumnType("double");
+                    b.Property<int>("totalTax")
+                        .HasColumnType("int");
 
                     b.Property<int>("userId")
                         .HasColumnType("int");
