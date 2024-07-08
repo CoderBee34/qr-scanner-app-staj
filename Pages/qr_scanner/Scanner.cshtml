@@ -1,10 +1,13 @@
 @page
 @model qr_scanner_app_staj.Pages.qr_scanner.ScannerModel
 
-<div>
+<div class="row justify-content-center">
     <video id="video" width="600" height="400" style="border: 1px solid black"></video>
     <canvas id="canvas" hidden></canvas>
-    <div id="qr-result"></div>
+    <form id="qr-form" method="post">
+        <input id="qr-input" type=" hidden" asp-for="QrCode">
+    </form>
+    <a class="btn btn-info form-control text-white" asp-page="Receipts">Go Back</a>
 </div>
 
 @section Scripts {
@@ -13,7 +16,8 @@
             const video = document.getElementById('video');
             const canvas = document.getElementById('canvas');
             const canvasContext = canvas.getContext('2d');
-            const qrResult = document.getElementById('qr-result');
+            const qrInput = document.getElementById('qr-input');
+            const qrForm = document.getElementById('qr-form');
 
             navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } }).then(stream => {
                 video.srcObject = stream;
@@ -32,8 +36,8 @@
                         inversionAttempts: "dontInvert",
                     });
                     if (code) {
-                        qrResult.innerText = `QR Code: ${code.data}`;
-                        // Optionally, send the decoded text to the server for further processing.
+                        qrInput.value = code.data;
+                        qrForm.submit();
                     }
                 }
                 requestAnimationFrame(tick);
