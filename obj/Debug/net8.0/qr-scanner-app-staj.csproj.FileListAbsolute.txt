@@ -449,3 +449,11 @@
 /Users/aliilan/Documents/qr-scanner-web/qr-scanner-app-staj/obj/Debug/net8.0/qr-scanner-app-staj.csproj.AssemblyReference.cache
 /Users/aliilan/Documents/qr-scanner-web/qr-scanner-app-staj/obj/Debug/net8.0/qr-scanner-app-staj.MvcApplicationPartsAssemblyInfo.cs
 /Users/aliilan/Documents/qr-scanner-web/qr-scanner-app-staj/obj/Debug/net8.0/qr-scann.ACF5BC6A.Up2Date
+/Users/aliilan/Documents/qr-scanner-web/qr-scanner-app-staj/bin/Debug/net8.0/HtmlAgilityPack.dll
+/Users/aliilan/Documents/qr-scanner-web/qr-scanner-app-staj/bin/Debug/net8.0/package-lock.json
+/Users/aliilan/Documents/qr-scanner-web/qr-scanner-app-staj/bin/Debug/net8.0/package.json
+/Users/aliilan/Documents/qr-scanner-web/qr-scanner-app-staj/bin/Debug/net8.0/selenium-manager/linux/selenium-manager
+/Users/aliilan/Documents/qr-scanner-web/qr-scanner-app-staj/bin/Debug/net8.0/selenium-manager/macos/selenium-manager
+/Users/aliilan/Documents/qr-scanner-web/qr-scanner-app-staj/bin/Debug/net8.0/selenium-manager/windows/selenium-manager.exe
+/Users/aliilan/Documents/qr-scanner-web/qr-scanner-app-staj/bin/Debug/net8.0/Newtonsoft.Json.dll
+/Users/aliilan/Documents/qr-scanner-web/qr-scanner-app-staj/bin/Debug/net8.0/WebDriver.dll
