@@ -18,6 +18,7 @@
             const canvasContext = canvas.getContext('2d');
             const qrInput = document.getElementById('qr-input');
             const qrForm = document.getElementById('qr-form');
+            let qrCodeDetected = false;
 
             navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } }).then(stream => {
                 video.srcObject = stream;
@@ -27,6 +28,7 @@
             });
 
             function tick() {
+                if (qrCodeDetected) return;
                 if (video.readyState === video.HAVE_ENOUGH_DATA) {
                     canvas.height = video.videoHeight;
                     canvas.width = video.videoWidth;
@@ -36,6 +38,7 @@
                         inversionAttempts: "dontInvert",
                     });
                     if (code) {
+                        qrCodeDetected = true;
                         qrInput.value = code.data;
                         qrForm.submit();
                     }
