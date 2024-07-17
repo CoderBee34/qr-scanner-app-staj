@@ -457,3 +457,8 @@
 /Users/aliilan/Documents/qr-scanner-web/qr-scanner-app-staj/bin/Debug/net8.0/selenium-manager/windows/selenium-manager.exe
 /Users/aliilan/Documents/qr-scanner-web/qr-scanner-app-staj/bin/Debug/net8.0/Newtonsoft.Json.dll
 /Users/aliilan/Documents/qr-scanner-web/qr-scanner-app-staj/bin/Debug/net8.0/WebDriver.dll
+/Users/aliilan/Documents/qr-scanner-web/qr-scanner-app-staj/bin/Debug/net8.0/x86/leptonica-1.82.0.dll
+/Users/aliilan/Documents/qr-scanner-web/qr-scanner-app-staj/bin/Debug/net8.0/x86/tesseract50.dll
+/Users/aliilan/Documents/qr-scanner-web/qr-scanner-app-staj/bin/Debug/net8.0/x64/leptonica-1.82.0.dll
+/Users/aliilan/Documents/qr-scanner-web/qr-scanner-app-staj/bin/Debug/net8.0/x64/tesseract50.dll
+/Users/aliilan/Documents/qr-scanner-web/qr-scanner-app-staj/bin/Debug/net8.0/Tesseract.dll

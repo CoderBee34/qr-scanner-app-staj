@@ -45,6 +45,7 @@
           "Pomelo.EntityFrameworkCore.MySql": "8.0.2",
           "Selenium.WebDriver": "4.22.0",
           "Selenium.WebDriver.ChromeDriver": "126.0.6478.12600",
+          "Tesseract": "5.2.0",
           "Microsoft.AspNetCore.Antiforgery": "8.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "8.0.0.0",
           "Microsoft.AspNetCore.Authentication.BearerToken": "8.0.0.0",
@@ -270,7 +271,7 @@
           "System.ObjectModel": "8.0.0.0",
           "System.Reflection.DispatchProxy": "8.0.0.0",
           "System.Reflection.Reference": "8.0.0.0",
-          "System.Reflection.Emit": "8.0.0.0",
+          "System.Reflection.Emit.Reference": "8.0.0.0",
           "System.Reflection.Emit.ILGeneration": "8.0.0.0",
           "System.Reflection.Emit.Lightweight": "8.0.0.0",
           "System.Reflection.Extensions": "8.0.0.0",
@@ -1371,6 +1372,7 @@
           "System.Runtime": "4.3.0"
         }
       },
+      "System.Reflection.Emit/4.7.0": {},
       "System.Reflection.Metadata/6.0.1": {
         "dependencies": {
           "System.Collections.Immutable": "6.0.0"
@@ -1493,6 +1495,20 @@
         },
         "compile": {
           "lib/net8.0/System.Windows.Extensions.dll": {}
+        }
+      },
+      "Tesseract/5.2.0": {
+        "dependencies": {
+          "System.Reflection.Emit": "4.7.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Tesseract.dll": {
+            "assemblyVersion": "5.2.0.0",
+            "fileVersion": "5.2.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Tesseract.dll": {}
         }
       },
       "ZstdSharp.Port/0.8.0": {
@@ -2856,7 +2872,7 @@
         },
         "compileOnly": true
       },
-      "System.Reflection.Emit/8.0.0.0": {
+      "System.Reflection.Emit.Reference/8.0.0.0": {
         "compile": {
           "System.Reflection.Emit.dll": {}
         },
@@ -3866,6 +3882,13 @@
       "path": "system.reflection/4.3.0",
       "hashPath": "system.reflection.4.3.0.nupkg.sha512"
     },
+    "System.Reflection.Emit/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VR4kk8XLKebQ4MZuKuIni/7oh+QGFmZW3qORd1GvBq/8026OpW501SzT/oypwiQl4TvT8ErnReh/NzY9u+C6wQ==",
+      "path": "system.reflection.emit/4.7.0",
+      "hashPath": "system.reflection.emit.4.7.0.nupkg.sha512"
+    },
     "System.Reflection.Metadata/6.0.1": {
       "type": "package",
       "serviceable": true,
@@ -3998,6 +4021,13 @@
       "sha512": "sha512-Obg3a90MkOw9mYKxrardLpY2u0axDMrSmy4JCdq2cYbelM2cUwmUir5Bomvd1yxmPL9h5LVHU1tuKBZpUjfASg==",
       "path": "system.windows.extensions/8.0.0",
       "hashPath": "system.windows.extensions.8.0.0.nupkg.sha512"
+    },
+    "Tesseract/5.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-YB7feJlrTWSXtK8+WaCcseGSPK/1r2d2FWeKGyndlrPwYClrzTlCoHD4/oQEUjKafmpkWlhTZZ7pxiRJYZgj6w==",
+      "path": "tesseract/5.2.0",
+      "hashPath": "tesseract.5.2.0.nupkg.sha512"
     },
     "ZstdSharp.Port/0.8.0": {
       "type": "package",
@@ -5131,7 +5161,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "System.Reflection.Emit/8.0.0.0": {
+    "System.Reflection.Emit.Reference/8.0.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""

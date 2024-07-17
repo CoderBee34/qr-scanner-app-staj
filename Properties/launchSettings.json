@@ -33,6 +33,12 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+    },
+    "ImageTextExtraction": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DYLD_LIBRARY_PATH": "/usr/local/opt/tesseract/lib:/usr/local/opt/leptonica/lib"
+      }
     }
   }
 }

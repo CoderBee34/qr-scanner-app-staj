@@ -80,6 +80,10 @@
             "Selenium.WebDriver.ChromeDriver": {
               "target": "Package",
               "version": "[126.0.6478.12600, )"
+            },
+            "Tesseract": {
+              "target": "Package",
+              "version": "[5.2.0, )"
             }
           },
           "imports": [
