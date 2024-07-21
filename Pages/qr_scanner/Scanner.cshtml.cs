@@ -1,9 +1,10 @@
+using System.Diagnostics;
+using IronOcr;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
-using Tesseract;
 namespace qr_scanner_app_staj.Pages.qr_scanner
 {
     public class ScannerModel() : PageModel
@@ -35,17 +36,34 @@ namespace qr_scanner_app_staj.Pages.qr_scanner
             {
                 driver.Quit();
             }
+
             string extractedText = ExtractTextFromImage(filePath);
             Console.WriteLine("Extracted Text:");
             Console.WriteLine(extractedText);
             return RedirectToPage("Receipts");
         }
-        static string ExtractTextFromImage(string imagePath)
+
+        private static string ExtractTextFromImage(string imagePath)
         {
-            using var engine = new TesseractEngine(@"/usr/local/share/tessdata", "eng", EngineMode.Default);
-            using var img = Pix.LoadFromFile(imagePath);
-            using var page = engine.Process(img);
-            return page.GetText();
+
+            string pythonScriptPath = "Pages/python_script/ImageTextExtractor.py";
+
+            ProcessStartInfo start = new ProcessStartInfo
+            {
+                FileName = "/usr/local/bin/python3",
+                Arguments = $"{pythonScriptPath} \"{imagePath}\"",
+                UseShellExecute = false,
+                RedirectStandardOutput = true
+            };
+            string result;
+            using (Process process = Process.Start(start))
+            {
+                using (StreamReader reader = process.StandardOutput)
+                {
+                    result = reader.ReadToEnd();
+                }
+            }
+            return result;
         }
         static string GetDocParameter(string url)
         {
