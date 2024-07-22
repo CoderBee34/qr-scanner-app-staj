@@ -16,6 +16,21 @@
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Login</button>
             </form>
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div id="error-message" style="display:none;">
+                    @TempData["ErrorMessage"]
+                </div>
+            }
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    var errorMessageDiv = document.getElementById("error-message");
+                    if (errorMessageDiv) {
+                        alert(errorMessageDiv.innerText);
+                    }
+                });
+            </script>
         </div>
     </div>
 </div>

@@ -10,9 +10,13 @@ namespace qr_scanner_app_staj.Pages.qr_scanner
         [BindProperty]
         public User User { get; set; }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
-
+            if (HttpContext.Session.GetInt32("CurrentUser").HasValue)
+            {
+                return RedirectToPage("Receipts");
+            }
+            return Page();
         }
 
         public async Task<IActionResult> OnPost()
@@ -22,6 +26,7 @@ namespace qr_scanner_app_staj.Pages.qr_scanner
                 var user = await _db.User.SingleOrDefaultAsync(u => u.username == User.username && u.password == User.password);
                 if (user == null)
                 {
+                    TempData["ErrorMessage"] = "Wrong username or password.";
                     return Page();
                 }
                 HttpContext.Session.SetInt32("CurrentUser", user.userId);

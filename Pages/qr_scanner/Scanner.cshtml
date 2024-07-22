@@ -7,6 +7,21 @@
     <form id="qr-form" method="post">
         <input id="qr-input" type=" hidden" asp-for="QrCode">
     </form>
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div id="error-message" style="display:none;">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var errorMessageDiv = document.getElementById("error-message");
+            if (errorMessageDiv) {
+                alert(errorMessageDiv.innerText);
+            }
+        });
+    </script>
     <a class="btn btn-info form-control text-white" asp-page="Receipts">Go Back</a>
 </div>
 
