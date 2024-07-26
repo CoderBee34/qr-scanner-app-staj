@@ -15,6 +15,7 @@
                     <input type="password" class="form-control" asp-for="User.password" required />
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Login</button>
+                <a class="btn btn-primary btn-block" asp-page="CreateUser">Register</a>
             </form>
             @if (TempData["ErrorMessage"] != null)
             {

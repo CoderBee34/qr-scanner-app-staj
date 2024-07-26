@@ -1,4 +1,4 @@
-using System.Net.Http.Headers;
+using OfficeOpenXml;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +27,25 @@ namespace qr_scanner_app_staj.Pages.qr_scanner
         {
             HttpContext.Session.Remove("CurrentUser");
             return RedirectToPage("Index");
+        }
+        public async Task OnPostExcelAsync()
+        {
+            receipts = await _db.Receipt.Where(r => r.userId == HttpContext.Session.GetInt32("CurrentUser")).ToListAsync();
+            using (ExcelPackage package = new ExcelPackage())
+            {
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Sheet");
+                int i = 0;
+                foreach (var receipt in receipts)
+                {
+                    worksheet.Cells[i + 1, 1].Value = receipt.receiptId;
+                    worksheet.Cells[i + 1, 2].Value = receipt.date;
+                    worksheet.Cells[i + 1, 3].Value = receipt.total;
+                    worksheet.Cells[i + 1, 4].Value = receipt.totalTax;
+                    i++;
+                }
+                FileInfo fileInfo = new FileInfo("output.xlsx");
+                package.SaveAs(fileInfo);
+            }
         }
     }
 }
