@@ -1,5 +1,5 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using qr_scanner_app_staj.Model;
 
@@ -13,7 +13,7 @@ namespace qr_scanner_app_staj.Pages.qr_scanner
         public int AvailableUserID { get; set; }
         public void OnGet()
         {
-            AvailableUserID = _db.User.Max(u => u.userId);
+            AvailableUserID = _db.User.Max(u => u.userId) + 1;
         }
 
         public IActionResult OnPost()
@@ -38,7 +38,7 @@ namespace qr_scanner_app_staj.Pages.qr_scanner
             {
                 userId = AvailableUserID,
                 username = username,
-                password = password
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(password)
             };
 
             _db.User.Add(newUser);

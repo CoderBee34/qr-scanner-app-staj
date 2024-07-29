@@ -9,6 +9,6 @@ namespace qr_scanner_app_staj.Model
 
         [Required]
         public string username { get; set; }
-        public string password { get; set; }
+        public string PasswordHash { get; set; }
     }
 }

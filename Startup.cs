@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using qr_scanner_app_staj.Model;
 
@@ -12,15 +13,13 @@ namespace qr_scanner_app_staj
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add session services
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(30); // Set the session timeout
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
                 options.Cookie.HttpOnly = true;
-                options.Cookie.IsEssential = true; // Make the session cookie essential
+                options.Cookie.IsEssential = true;
             });
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseMySql(Configuration.GetConnectionString("DefaultConnection"),
