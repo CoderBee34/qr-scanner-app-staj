@@ -13,7 +13,7 @@ namespace qr_scanner_app_staj.Pages.qr_scanner
         public int AvailableUserID { get; set; }
         public void OnGet()
         {
-            AvailableUserID = _db.User.Max(u => u.userId) + 1;
+            AvailableUserID = (_db.User.Any() ? _db.User.Max(u => u.userId) : 0) + 1;
         }
 
         public IActionResult OnPost()
