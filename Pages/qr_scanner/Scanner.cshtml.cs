@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using System.Text.RegularExpressions;
-using IronOcr;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -33,44 +32,57 @@ namespace qr_scanner_app_staj.Pages.qr_scanner
             pictureURL = pictureURL + GetDocParameter(QrCode);
             Console.WriteLine(QrCode);
             Console.WriteLine(pictureURL);
-            string filePath = "";
 
-            IWebDriver driver = new ChromeDriver();
-            try
+            //string filePath = Path.Combine(Environment.CurrentDirectory, "screenshot.png"); ;
+            // IWebDriver driver = new ChromeDriver();
+            // try
+            // {
+            //     driver.Navigate().GoToUrl(pictureURL);
+            //     WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+            //     Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+            //     screenshot.SaveAsFile(filePath);
+            // }
+            // catch (Exception e)
+            // {
+            //     Console.WriteLine($"An error occurred: {e.Message}");
+            // }
+            // finally
+            // {
+            //     driver.Quit();
+            // }
+
+            string filePath1 = Path.Combine(Environment.CurrentDirectory, "downloaded_image.jpg");
+            using (HttpClient client = new HttpClient())
             {
-                driver.Navigate().GoToUrl(pictureURL);
-                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
-                Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-                filePath = Path.Combine(Environment.CurrentDirectory, "screenshot.png");
-                screenshot.SaveAsFile(filePath);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"An error occurred: {e.Message}");
-            }
-            finally
-            {
-                driver.Quit();
+                var response = await client.GetAsync(pictureURL);
+                response.EnsureSuccessStatusCode();
+                byte[] imageBytes = await response.Content.ReadAsByteArrayAsync();
+                await System.IO.File.WriteAllBytesAsync(filePath1, imageBytes);
+                Console.WriteLine($"Image saved to {filePath1}");
             }
 
-            string extractedText = ExtractTextFromImage(filePath);
+            string extractedText = ExtractTextFromImage(filePath1);
             Console.WriteLine("Extracted Text:");
             Console.WriteLine(extractedText);
 
-            string receiptNoPattern = @"Sale receipt Ne\s*(\d+)";
+            string receiptNoPattern = @"Salle receipt Ne\s*(\d+)";
             string receiptNo = Regex.Match(extractedText, receiptNoPattern).Groups[1].Value;
+            Console.WriteLine(receiptNo);
 
-            string datePattern = @"Date\s*(\d{2}\.\d{2}\.\d{4})";
+            string datePattern = @"Date:\s(\d{2}\.\d{2}\.\d{4})";
             string date = Regex.Match(extractedText, datePattern).Groups[1].Value;
+            Console.WriteLine(date);
 
-            string totalPattern = @"Total\s*(\d+\.\d+)";
+            string totalPattern = @"Total\s*([\d.]+)";
             string total = Regex.Match(extractedText, totalPattern).Groups[1].Value;
+            Console.WriteLine(total);
 
-            string totalTaxPattern = @"\*Total tax\s*=\s*(\d+\.\d+)";
+            string totalTaxPattern = @"Total tax\s*=\s*([\d.]+)";
             string totalTax = Regex.Match(extractedText, totalTaxPattern).Groups[1].Value;
+            Console.WriteLine(totalTax);
 
             int userId = HttpContext.Session.GetInt32("CurrentUser").Value;
-            var receipt = await _db.Receipt.SingleOrDefaultAsync(u => u.receiptId == int.Parse(receiptNo));
+            var receipt = await _db.Receipt.SingleOrDefaultAsync(u => u.receiptId == int.Parse(receiptNo) && u.userId == userId);
             if (receipt == null)
             {
                 TempData["ErrorMessage"] = "This receipt already exists on database.";

@@ -10,6 +10,10 @@ namespace qr_scanner_app_staj.Model
         }
         public DbSet<User> User { get; set; }
         public DbSet<Receipt> Receipt { get; set; }
-
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Receipt>()
+                .HasKey(r => new { r.receiptId, r.userId });
+        }
     }
 }
