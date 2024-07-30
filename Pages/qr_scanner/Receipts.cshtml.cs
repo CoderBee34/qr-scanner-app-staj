@@ -43,7 +43,13 @@ namespace qr_scanner_app_staj.Pages.qr_scanner
                     worksheet.Cells[i + 1, 4].Value = receipt.totalTax;
                     i++;
                 }
-                FileInfo fileInfo = new FileInfo("output.xlsx");
+                var user = await _db.User
+                        .Where(u => u.userId == HttpContext.Session.GetInt32("CurrentUser"))
+                        .Select(u => new { u.username })
+                        .FirstOrDefaultAsync();
+                string sanitizedUsername = string.Join("_", user.username.Split(Path.GetInvalidFileNameChars()));
+                string fileName = $"ExcelOutputs/output_{sanitizedUsername}.xlsx";
+                FileInfo fileInfo = new FileInfo(fileName);
                 package.SaveAs(fileInfo);
             }
         }
