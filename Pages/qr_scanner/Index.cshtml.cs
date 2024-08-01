@@ -19,7 +19,9 @@ namespace qr_scanner_app_staj.Pages.qr_scanner
 
         public IActionResult OnGet()
         {
-            if (HttpContext.Session.GetInt32("CurrentUser").HasValue)
+            var currentUserId = HttpContext.Session.GetInt32("CurrentUser");
+
+            if (currentUserId.HasValue)
             {
                 return RedirectToPage("Receipts");
             }

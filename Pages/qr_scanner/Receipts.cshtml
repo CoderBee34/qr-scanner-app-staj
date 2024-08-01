@@ -21,27 +21,27 @@
     </div>
     <div class="col-12 border p-3 mt-3">
         <form method="post">
-            @if (Model.receipts.Count() > 0)
+            @if (Model.Receipts.Count() > 0)
             {
                 <table class="table table-striped border">
                     <tr class="table-secondary">
                         <th>
-                            <label asp-for="receipts.FirstOrDefault().receiptId"></label>
+                            <label asp-for="Receipts.FirstOrDefault().receiptId"></label>
                         </th>
                         <th>
-                            <label asp-for="receipts.FirstOrDefault().date"></label>
+                            <label asp-for="Receipts.FirstOrDefault().date"></label>
                         </th>
                         <th>
-                            <label asp-for="receipts.FirstOrDefault().total"></label>
+                            <label asp-for="Receipts.FirstOrDefault().total"></label>
                         </th>
                         <th>
-                            <label asp-for="receipts.FirstOrDefault().totalTax"></label>
+                            <label asp-for="Receipts.FirstOrDefault().totalTax"></label>
                         </th>
                         <th>
 
                         </th>
                     </tr>
-                    @foreach (var item in Model.receipts)
+                    @foreach (var item in Model.Receipts)
                     {
                         <tr>
                             <td>

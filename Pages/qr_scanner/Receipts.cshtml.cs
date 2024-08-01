@@ -3,55 +3,84 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using qr_scanner_app_staj.Model;
+
 namespace qr_scanner_app_staj.Pages.qr_scanner
 {
     public class ReceiptsModel(ApplicationDbContext db) : PageModel
     {
         private readonly ApplicationDbContext _db = db;
 
-        public IEnumerable<Receipt> receipts { get; set; }
+        public IEnumerable<Receipt> Receipts { get; set; }
 
         public async Task<IActionResult> OnGet()
         {
-            if (HttpContext.Session.GetInt32("CurrentUser").HasValue)
+            var currentUserId = HttpContext.Session.GetInt32("CurrentUser");
+
+            if (currentUserId.HasValue)
             {
-                receipts = await _db.Receipt.Where(r => r.userId == HttpContext.Session.GetInt32("CurrentUser")).ToListAsync();
+                Receipts = await _db.Receipt
+                                    .Where(r => r.userId == currentUserId.Value)
+                                    .ToListAsync();
+
                 return Page();
             }
-            else
-            {
-                return RedirectToPage("Index");
-            }
+
+            return RedirectToPage("Index");
         }
+
         public IActionResult OnPostLogOut()
         {
             HttpContext.Session.Remove("CurrentUser");
             return RedirectToPage("Index");
         }
-        public async Task OnPostExcelAsync()
+
+        public async Task<IActionResult> OnPostExcelAsync()
         {
-            receipts = await _db.Receipt.Where(r => r.userId == HttpContext.Session.GetInt32("CurrentUser")).ToListAsync();
-            using (ExcelPackage package = new ExcelPackage())
+            var currentUserId = HttpContext.Session.GetInt32("CurrentUser");
+
+            if (!currentUserId.HasValue)
             {
-                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Sheet");
-                int i = 0;
-                foreach (var receipt in receipts)
-                {
-                    worksheet.Cells[i + 1, 1].Value = receipt.receiptId;
-                    worksheet.Cells[i + 1, 2].Value = receipt.date;
-                    worksheet.Cells[i + 1, 3].Value = receipt.total;
-                    worksheet.Cells[i + 1, 4].Value = receipt.totalTax;
-                    i++;
-                }
-                var user = await _db.User
-                        .Where(u => u.userId == HttpContext.Session.GetInt32("CurrentUser"))
-                        .Select(u => new { u.username })
-                        .FirstOrDefaultAsync();
-                string sanitizedUsername = string.Join("_", user.username.Split(Path.GetInvalidFileNameChars()));
-                string fileName = $"ExcelOutputs/output_{sanitizedUsername}.xlsx";
-                FileInfo fileInfo = new FileInfo(fileName);
-                package.SaveAs(fileInfo);
+                return RedirectToPage("Index");
             }
+
+            Receipts = await _db.Receipt
+                                .Where(r => r.userId == currentUserId.Value)
+                                .ToListAsync();
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Receipts");
+                var header = new[] { "Receipt ID", "Date", "Total", "Total Tax" };
+                for (int j = 0; j < header.Length; j++)
+                {
+                    worksheet.Cells[1, j + 1].Value = header[j];
+                }
+
+                for (int i = 0; i < Receipts.Count(); i++)
+                {
+                    var receipt = Receipts.ElementAt(i);
+                    worksheet.Cells[i + 2, 1].Value = receipt.receiptId;
+                    worksheet.Cells[i + 2, 2].Value = receipt.date;
+                    worksheet.Cells[i + 2, 3].Value = receipt.total;
+                    worksheet.Cells[i + 2, 4].Value = receipt.totalTax;
+                }
+
+                var user = await _db.User
+                                    .Where(u => u.userId == currentUserId.Value)
+                                    .Select(u => new { u.username })
+                                    .FirstOrDefaultAsync();
+
+                if (user != null)
+                {
+                    string sanitizedUsername = string.Join("_", user.username.Split(Path.GetInvalidFileNameChars()));
+                    string fileName = $"ExcelOutputs/output_{sanitizedUsername}.xlsx";
+
+                    var fileInfo = new FileInfo(fileName);
+                    package.SaveAs(fileInfo);
+                }
+            }
+
+            return Page();
         }
     }
 }
