@@ -28,9 +28,9 @@ namespace qr_scanner_app_staj.Pages.qr_scanner
                 return Page();
             }
 
-            if (_db.User.Any(u => u.username == username))
+            if (_db.User.Any(u => u.username == username && u.PasswordHash == BCrypt.Net.BCrypt.HashPassword(password)))
             {
-                ModelState.AddModelError(string.Empty, "Username already exists.");
+                ModelState.AddModelError(string.Empty, "User already exists.");
                 return Page();
             }
 

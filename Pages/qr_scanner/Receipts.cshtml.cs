@@ -77,6 +77,14 @@ namespace qr_scanner_app_staj.Pages.qr_scanner
 
                     var fileInfo = new FileInfo(fileName);
                     package.SaveAs(fileInfo);
+                    var memory = new MemoryStream();
+                    using (var stream = new FileStream(fileName, FileMode.Open))
+                    {
+                        stream.CopyTo(memory);
+                    }
+                    memory.Position = 0;
+
+                    return File(memory, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"excel_export_{sanitizedUsername}.xlsx");
                 }
             }
 
