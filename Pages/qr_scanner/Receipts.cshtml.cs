@@ -83,8 +83,16 @@ namespace qr_scanner_app_staj.Pages.qr_scanner
                         stream.CopyTo(memory);
                     }
                     memory.Position = 0;
+                    var fileResult = File(memory, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"excel_export_{sanitizedUsername}.xlsx");
+                    // Response.OnCompleted(async () =>
+                    //     {
+                    //         if (System.IO.File.Exists(fileName))
+                    //         {
+                    //             System.IO.File.Delete(fileName);
+                    //         }
+                    //     });
+                    return fileResult;
 
-                    return File(memory, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"excel_export_{sanitizedUsername}.xlsx");
                 }
             }
 

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("qr-scanner-app-staj")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0f1e38a66403feb72d37f93138ca52d2af0124b8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+54ec2b9f3f47dd432f16fce54d7de8dcc3dcf84d")]
 [assembly: System.Reflection.AssemblyProductAttribute("qr-scanner-app-staj")]
 [assembly: System.Reflection.AssemblyTitleAttribute("qr-scanner-app-staj")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

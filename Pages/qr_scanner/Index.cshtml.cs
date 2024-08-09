@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -39,7 +38,7 @@ namespace qr_scanner_app_staj.Pages.qr_scanner
             if (ModelState.IsValid)
             {
                 var user = await _db.User.SingleOrDefaultAsync(u => u.username == User.username);
-                if (user == null || user.PasswordHash == null || !BCrypt.Net.BCrypt.Verify(User.PasswordHash, user.PasswordHash))
+                if (user == null || !BCrypt.Net.BCrypt.Verify(User.PasswordHash, user.PasswordHash))
                 {
                     TempData["ErrorMessage"] = "Wrong username or password.";
                     return Page();
