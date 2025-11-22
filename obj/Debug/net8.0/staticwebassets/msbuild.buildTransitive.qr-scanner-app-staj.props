@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="../buildMultiTargeting/qr-scanner-app-staj.props" />
-</Project>
